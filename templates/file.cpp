@@ -38,6 +38,7 @@ constexpr int ninf = numeric_limits<int>::min();
 #define cani(x) show(((x) ? "YES" : "NO"))
 #define quit(x) { cout << #x << '\n'; return; }
 #define quitv(x) { cout << x << '\n'; return; }
+#define tag(x) cout << #x << endl
 
 void solve() {
     // code
