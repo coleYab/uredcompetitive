@@ -41,59 +41,34 @@ constexpr int ninf = numeric_limits<int>::min();
 #define tag(x) cout << #x << endl
 
 void solve() {
-    int n; cin >> n; vi a(n); fin(it, a) cin >> it;
-    vi ods, evs; fin(it, a) if (it & 1) ods.pb(it); else evs.pb(it);
-    int omx = ninf, omn = inf, emx = ninf, emn = inf;
-    fin(it, ods) {
-        omn = min(omn, it);
-        omx = max(omx, it);
+    ll a; int n; cin >> a >> n;
+    vi d(n); fin(it, d) cin >> it;
+    i128 aa = a, d1 = 0, d2 = 0, d3 = 0;
+    int s = to_string(a).size();
+    sort(all(d));
+    fr(i, 0, s + 1) {
+        d1 = d1 * 10 + d.begin();
     }
 
-    fin(it, evs) {
-        emn = min(emn, it);
-        emx = max(emx, it);
+    fr(i, 0, s - 1) {
+        d2 = d2 * 10 + d.back();
     }
 
-    bool ok = true;
-
-    if (sz(evs)) {
-        int cmx = evs[0];
-        fr(i, 1, sz(evs)) {
-            if (cmx <= evs[i]) {
-                cmx = evs[i];
-                continue;
-            }
-
-            if (omn < evs[i] && omn < cmx) continue;
-            if (omx > evs[i] && omx > cmx) continue;
-            ok = false;
-        }
-
-
+    if (n == 10) {
+        quit(0);
     }
 
-
-    if (sz(ods)) {
-        int cmx = ods[0];
-        fr(i, 1, sz(ods)) {
-            if (cmx <= ods[i]) {
-                cmx = ods[i];
-                continue;
-            }
-
-            if (emn < ods[i] && emx < cmx) continue;
-            if (emn > ods[i] && emx > cmx) continue;
-            ok = false;
-        }
+    if (n == 1) {
     }
 
-    cani(ok);
+    fr(i, 0, s) {
+    }
+
 }
 
 int main() {
     fio;
-    mcase;
+    scase;
 }
-
 
 

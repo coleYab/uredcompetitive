@@ -81,8 +81,8 @@ void solve() {
                 continue;
             }
 
-            if (emn < ods[i] && emx < cmx) continue;
-            if (emn > ods[i] && emx > cmx) continue;
+            if (emn < ods[i] && emn < cmx) continue;
+            if (emx > ods[i] && emx > cmx) continue;
             ok = false;
         }
     }
@@ -94,6 +94,3 @@ int main() {
     fio;
     mcase;
 }
-
-
-

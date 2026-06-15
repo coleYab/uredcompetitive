@@ -41,59 +41,13 @@ constexpr int ninf = numeric_limits<int>::min();
 #define tag(x) cout << #x << endl
 
 void solve() {
-    int n; cin >> n; vi a(n); fin(it, a) cin >> it;
-    vi ods, evs; fin(it, a) if (it & 1) ods.pb(it); else evs.pb(it);
-    int omx = ninf, omn = inf, emx = ninf, emn = inf;
-    fin(it, ods) {
-        omn = min(omn, it);
-        omx = max(omx, it);
-    }
+    string s; cin >> s;
 
-    fin(it, evs) {
-        emn = min(emn, it);
-        emx = max(emx, it);
-    }
-
-    bool ok = true;
-
-    if (sz(evs)) {
-        int cmx = evs[0];
-        fr(i, 1, sz(evs)) {
-            if (cmx <= evs[i]) {
-                cmx = evs[i];
-                continue;
-            }
-
-            if (omn < evs[i] && omn < cmx) continue;
-            if (omx > evs[i] && omx > cmx) continue;
-            ok = false;
-        }
-
-
-    }
-
-
-    if (sz(ods)) {
-        int cmx = ods[0];
-        fr(i, 1, sz(ods)) {
-            if (cmx <= ods[i]) {
-                cmx = ods[i];
-                continue;
-            }
-
-            if (emn < ods[i] && emx < cmx) continue;
-            if (emn > ods[i] && emx > cmx) continue;
-            ok = false;
-        }
-    }
-
-    cani(ok);
 }
 
 int main() {
     fio;
-    mcase;
+    scase;
 }
-
 
 

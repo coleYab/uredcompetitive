@@ -40,60 +40,43 @@ constexpr int ninf = numeric_limits<int>::min();
 #define quitv(x) { cout << x << '\n'; return; }
 #define tag(x) cout << #x << endl
 
+constexpr int mxn = 1e5+100;
+map<int, int> *cnt[mxn];
 void solve() {
-    int n; cin >> n; vi a(n); fin(it, a) cin >> it;
-    vi ods, evs; fin(it, a) if (it & 1) ods.pb(it); else evs.pb(it);
-    int omx = ninf, omn = inf, emx = ninf, emn = inf;
-    fin(it, ods) {
-        omn = min(omn, it);
-        omx = max(omx, it);
+    fill(begin(cnt), end(cnt), nullptr);
+    int n; cin >> n;
+    vi a(n); fin(it, a) cin >> it;
+    vll ans(n), mxc(n);
+    vvi adj(n);
+    fr(i, 1, n) {
+        int u, v; cin >> u >> v; u--, v--; adj[u].pb(v); adj[v].pb(u);
     }
 
-    fin(it, evs) {
-        emn = min(emn, it);
-        emx = max(emx, it);
-    }
-
-    bool ok = true;
-
-    if (sz(evs)) {
-        int cmx = evs[0];
-        fr(i, 1, sz(evs)) {
-            if (cmx <= evs[i]) {
-                cmx = evs[i];
-                continue;
-            }
-
-            if (omn < evs[i] && omn < cmx) continue;
-            if (omx > evs[i] && omx > cmx) continue;
-            ok = false;
+    vi size(n, 1);
+    auto dfs = [&](auto &&self, int r, int f) -> void {
+        int big = -1;
+        fin(it, adj[r]) {
+            if (it == f) continue;
+            self(self, it, r, f);
+            size[r] += size[it];
+            if (big == -1 || sz(cnt[it]) > size(cnt[big])) big = it;
         }
 
-
-    }
-
-
-    if (sz(ods)) {
-        int cmx = ods[0];
-        fr(i, 1, sz(ods)) {
-            if (cmx <= ods[i]) {
-                cmx = ods[i];
-                continue;
-            }
-
-            if (emn < ods[i] && emx < cmx) continue;
-            if (emn > ods[i] && emx > cmx) continue;
-            ok = false;
+        if (big == -1) cnt[r] = new map<int, int>();
+        else cnt[r] = cnt[big];
+        cnt[r][a[r]]++;
+        fin(it, adj[r]) {
+            if (it == fa || it == big) continue;
+            fin(jt, cnt[it]) cnt[r][jt.ff] += jt.ss;
         }
-    }
+    };
 
-    cani(ok);
+    dfs(dfs, 0, 0);
 }
 
 int main() {
     fio;
-    mcase;
+    scase;
 }
-
 
 

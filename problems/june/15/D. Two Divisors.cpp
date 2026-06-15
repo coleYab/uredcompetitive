@@ -40,60 +40,42 @@ constexpr int ninf = numeric_limits<int>::min();
 #define quitv(x) { cout << x << '\n'; return; }
 #define tag(x) cout << #x << endl
 
+const int mxn = 1e7+100;
+
+int spf1[mxn];
+int spf2[mxn];
+
+void init() {
+    fill(begin(spf1), end(spf1), -1);
+    fill(begin(spf2), end(spf2), -1);
+    fr(i, 2, mxn) {
+        if (spf1[i] != -1) continue;
+        spf1[i] = i;
+        for(int j = i + i; j < mxn; j += i) {
+            if (spf1[j] == -1) spf1[j] = i;
+            else if (spf2[j] == -1) spf2[j] = i;
+        }
+    }
+}
+
 void solve() {
-    int n; cin >> n; vi a(n); fin(it, a) cin >> it;
-    vi ods, evs; fin(it, a) if (it & 1) ods.pb(it); else evs.pb(it);
-    int omx = ninf, omn = inf, emx = ninf, emn = inf;
-    fin(it, ods) {
-        omn = min(omn, it);
-        omx = max(omx, it);
+    init();
+    int n; cin >> n;
+    vi a1, a2;
+    a1.reserve(n);
+    a2.reserve(n);
+    fr(i, 0, n) {
+        int x; cin >> x;
+        if (spf2[x] == -1) a1.pb(-1), a2.pb(-1);
+        else a1.pb(spf1[x]), a2.pb(spf2[x]);
     }
-
-    fin(it, evs) {
-        emn = min(emn, it);
-        emx = max(emx, it);
-    }
-
-    bool ok = true;
-
-    if (sz(evs)) {
-        int cmx = evs[0];
-        fr(i, 1, sz(evs)) {
-            if (cmx <= evs[i]) {
-                cmx = evs[i];
-                continue;
-            }
-
-            if (omn < evs[i] && omn < cmx) continue;
-            if (omx > evs[i] && omx > cmx) continue;
-            ok = false;
-        }
-
-
-    }
-
-
-    if (sz(ods)) {
-        int cmx = ods[0];
-        fr(i, 1, sz(ods)) {
-            if (cmx <= ods[i]) {
-                cmx = ods[i];
-                continue;
-            }
-
-            if (emn < ods[i] && emx < cmx) continue;
-            if (emn > ods[i] && emx > cmx) continue;
-            ok = false;
-        }
-    }
-
-    cani(ok);
+    print(a1);
+    print(a2);
 }
 
 int main() {
     fio;
-    mcase;
+    scase;
 }
-
 
 
