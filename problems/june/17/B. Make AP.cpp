@@ -40,47 +40,10 @@ constexpr int ninf = numeric_limits<int>::min();
 #define quitv(x) { cout << x << '\n'; return; }
 #define tag(x) cout << #x << endl
 
+
 void solve() {
-    int n; cin >> n;
-    vvi g(n); fin(it, g) { it.resize(n); fin(jt, it) cin >> jt; }
-    vvi dp(n, vi(n, -1));
-    vector<vpii> bef(n + 1, vpii(n + 1, {-1, -1}));
-    vvi dir(n + 1, vi(n + 1, -1));
+     ll a, b, c; cin >> a >> b >> c;
 
-    fr(i, 0, n) {
-        fr(j, 0, n) {
-            if (i) {
-                dp[i][j] = dp[i - 1][j] + g[i][j] == 0;
-                bef[i][j] = {i - 1, j};
-                dir[i][j] = 'D';
-            }
-
-            if (j) {
-                int cur = dp[i][j];
-                int now = dp[i][j - 1] + g[i][j] == 0;
-                if (cur == -1 || cur > now) {
-                    dp[i][j] = cur;
-                    bef[i][j] = {i, j - 1};
-                    dir[i][j] = 'R';
-                }
-            }
-        }
-    }
-
-    // fin(it, dir) { print(it); }
-    int x = n - 1, y = n - 1;
-    vpii ans;
-    string s;
-    while (true) {
-        ans.pb({x, y});
-        int nx = bef[x][y].ff, ny = bef[x][y].ss;
-        ans.pb({x, y});
-        s += (char)(dir[x][y]);
-        x = nx, y = ny;
-        if (x == 0 && y == 0) break;
-    }
-    show(dp[n - 1][n - 1]);
-    show(s);
 }
 
 int main() {

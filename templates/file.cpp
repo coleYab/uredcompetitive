@@ -40,8 +40,9 @@ constexpr int ninf = numeric_limits<int>::min();
 #define quitv(x) { cout << x << '\n'; return; }
 #define tag(x) cout << #x << endl
 
+
 void solve() {
-    // code
+
 }
 
 int main() {
